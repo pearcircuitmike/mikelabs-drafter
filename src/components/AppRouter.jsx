@@ -15,13 +15,13 @@ export default function AppRouter(props) {
     <>
       <Router>
         <Switch>
-          <Route exact path='/' component={Homepage} />
-          <ProtectedRoute exact path='/login' component={Loginpage} />
-          <ProtectedRoute exact path='/register' component={Registerpage} />
-          <ProtectedRoute exact path='/profile' component={Profilepage} />
-          <ProtectedRoute exact path='/protected-page' component={ProtectedPage} />
-          <ProtectedRoute exact path='/forgot-password' component={ForgotPasswordPage} />
-          <ProtectedRoute exact path='/reset-password' component={ResetPasswordPage} />
+          <Route exact strict path='/' component={Homepage} />
+          <ProtectedRoute exact strict path='/login' component={Loginpage} />
+          <ProtectedRoute exact strict path='/register' component={Registerpage} />
+          <ProtectedRoute exact strict path='/profile' component={Profilepage} />
+          <ProtectedRoute exact strict path='/protected-page' component={ProtectedPage} />
+          <ProtectedRoute exact strict path='/forgot-password' component={ForgotPasswordPage} />
+          <ProtectedRoute exact strict path='/reset-password' component={ResetPasswordPage} />
           <Route exact path='*' component={NotfoundPage} />
         </Switch>
       </Router>
