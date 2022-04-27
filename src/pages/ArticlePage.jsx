@@ -4,6 +4,7 @@ Stack,
 useToast,
 Container, Textarea, Spacer, Flex, Text, Avatar, Center, Spinner
 } from '@chakra-ui/react'
+import { LinkIcon } from '@chakra-ui/icons'
 import { useParams } from 'react-router-dom'
 import  React, {useState, useEffect} from 'react'
 import { Layout } from '../components/Layout'
@@ -12,12 +13,27 @@ import { collection, query, where, getDoc, documentId , doc, onSnapshot} from 'f
 import { db } from "../utils/init-firebase"
 
 
+
+
+
 export default function ArticlePage() {
   const toast = useToast()
   let { uid, articleId } = useParams();
 
   const [article, setArticle] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  function copy() {
+    const el = document.createElement("input");
+    el.value = window.location.href;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+    setCopied(true);
+  }
+
 
   useEffect( async () => {
     setIsLoading(true);
@@ -71,11 +87,13 @@ export default function ArticlePage() {
               alt={article.authorName}
               mr ={2}
               />
-              <Text>{article.authorName} </Text>
+              <Text mr={3}>{article.authorName} </Text>
+              <Button onClick={ copy }>{!copied ? <div><LinkIcon mr={3} />Share with Link</div> : "Copied!"}</Button>
+
             </Center>
           </Flex>
 
-        <Text as='h2' size='sm'> {article.description} </Heading>
+        <Text as='h2' size='sm'> {article.description} </Text>
 
         </Container>
       </Layout>
