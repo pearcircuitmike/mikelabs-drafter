@@ -61,21 +61,21 @@ export default function ArticlePage() {
     return(
       <Layout>
         <Container>
-        <Heading mb={3}> {article && article.title} </Heading>
+        <Heading mb={4} as='h1' size='3xl'> {article.title} </Heading>
         <Flex mb={6}>
           <Center>
             <Avatar
-              boxSize='40px'
-              src={article && article.authorPhoto}
-              name={article && article.authorName}
-              alt={article && article.authorName}
-              mr ={3}
+              size='sm'
+              src={article.authorPhoto}
+              name={article.authorName}
+              alt={article.authorName}
+              mr ={2}
               />
-              <Text>{article && article.authorName} </Text>
+              <Text>{article.authorName} </Text>
             </Center>
           </Flex>
 
-        <Text> {article && article.description} </Text>
+        <Text as='h2' size='sm'> {article.description} </Heading>
 
         </Container>
       </Layout>
