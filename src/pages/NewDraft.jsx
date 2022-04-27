@@ -41,11 +41,12 @@ export default function NewDraft() {
     setIsSubmitting(true)
 
     try{
-      const res = await addDoc(collection(db, `users/${currentUser.uid}/drafts`),{
+      const res = await addDoc(collection(db, `${currentUser.uid}`),{
         title: title,
         description: description,
         timeStamp: serverTimestamp(),
-        authorEmail: currentUser.email,
+        authorName: currentUser.displayName,
+        authorPhoto: currentUser.photoURL,
       })
 
       console.log(res);

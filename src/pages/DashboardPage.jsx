@@ -27,7 +27,7 @@ export default function DashboardPage() {
   const toast = useToast()
   const history = useHistory()
   const {currentUser} = useAuth()
-  const draftsRef = collection(db,  `users/${currentUser.uid}/drafts`);
+  const draftsRef = collection(db,  `${currentUser.uid}`);
   const [drafts, setDrafts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -68,11 +68,9 @@ export default function DashboardPage() {
 
 
       <Container maxW='container.lg' overflowX='auto'py={4}>
-          {drafts.length > 0
+          {drafts && drafts.length > 0
             ? drafts && drafts.map((drafts) => <DraftCard key={drafts.id} {...drafts}/>)
-            : !isLoading ? <DashboardEmpty/> : ""}
-
-
+            : <DashboardEmpty/> }
 
         </Container>
 

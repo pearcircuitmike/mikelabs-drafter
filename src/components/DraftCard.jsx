@@ -12,7 +12,7 @@ import { EditIcon, DeleteIcon } from '@chakra-ui/icons'
 export const DraftCard = ({id, title, description, serverTimestamp}) => {
     const {currentUser} = useAuth()
     const onDeleteDraft = (id) =>
-    deleteDoc(doc(db, `users/${currentUser.uid}/drafts/${id}`));
+    deleteDoc(doc(db, `${currentUser.uid}/${id}`));
 
     return(
     <Card key={id} maxW='xl' mx='auto' mt={4}>

@@ -9,6 +9,7 @@ import ProtectedPage from '../pages/ProtectedPage'
 import Registerpage from '../pages/Registerpage'
 import DashboardPage from '../pages/DashboardPage'
 import NewDraft from '../pages/NewDraft'
+import ArticlePage from '../pages/ArticlePage'
 
 import ResetPasswordPage from '../pages/ResetPasswordPage'
 import { useAuth } from '../contexts/AuthContext'
@@ -18,13 +19,16 @@ export default function AppRouter(props) {
     <>
       <Router>
         <Switch>
-          <Route exact strict path='/' component={Homepage} />
+          <Route exact path='/' component={Homepage} />
           <ProtectedRoute exact path='/login' component={Loginpage} />
           <ProtectedRoute exact path='/register' component={Registerpage} />
           <ProtectedRoute exact path='/profile' component={Profilepage} />
           <ProtectedRoute exact path='/protected-page' component={ProtectedPage} />
           <ProtectedRoute exact path='/dashboard-page' component={DashboardPage} />
           <ProtectedRoute exact path='/new-draft' component={NewDraft} />
+
+          <Route path='/user/:uid/article/:articleId' component={ArticlePage} />
+
           <ProtectedRoute exact path='/forgot-password' component={ForgotPasswordPage} />
           <ProtectedRoute exact path='/reset-password' component={ResetPasswordPage} />
           <Route exact path='*' component={NotfoundPage} />
