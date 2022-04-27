@@ -17,6 +17,8 @@ import { doc, addDoc, collection, query, orderBy, getDocs, onSnapshot } from 'fi
 import { db } from "../utils/init-firebase"
 
 import {DraftCard } from "../components/DraftCard"
+import {DashboardEmpty } from "../components/DashboardEmpty"
+
 
 
 export default function DashboardPage() {
@@ -44,7 +46,7 @@ export default function DashboardPage() {
       <Heading>
         Dashboard
       </Heading>
-        <Spacer />
+      <Spacer />
       <Button colorScheme='green' onClick={() => history.push('/new-draft')}>
         + New Draft
         </Button>
@@ -52,12 +54,12 @@ export default function DashboardPage() {
 
 
       <Container maxW='container.lg' overflowX='auto'py={4}>
+          {drafts.length > 0
+            ? drafts && drafts.map((drafts) => <DraftCard key={drafts.id} {...drafts}/>)
+            : <DashboardEmpty/>}
 
 
 
-            <p>
-            {drafts && drafts.map((drafts) => <DraftCard key={drafts.id} {...drafts}/>)}
-            </p>
         </Container>
 
     </Layout>
