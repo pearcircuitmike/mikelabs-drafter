@@ -60,9 +60,6 @@ export default function NewDraft() {
         isClosable: true
       })
     }
-
-
-
   }
 
   return (
