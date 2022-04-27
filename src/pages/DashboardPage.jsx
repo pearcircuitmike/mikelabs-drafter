@@ -19,6 +19,8 @@ import { db } from "../utils/init-firebase"
 import {DraftCard } from "../components/DraftCard"
 import {DashboardEmpty } from "../components/DashboardEmpty"
 
+import { AddIcon } from '@chakra-ui/icons'
+
 
 
 export default function DashboardPage() {
@@ -26,17 +28,29 @@ export default function DashboardPage() {
   const history = useHistory()
   const {currentUser} = useAuth()
   const draftsRef = collection(db,  `users/${currentUser.uid}/drafts`);
-  const draftsQuery = query(draftsRef, orderBy("timeStamp", "asc"));
   const [drafts, setDrafts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
 
   useEffect(() => {
-    return onSnapshot(
+    setIsLoading(true);
+    try{
+      return onSnapshot(
       draftsRef,
       (snapshot) => {
         setDrafts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       }
     );
+    setIsLoading(false);
+    }
+    catch(error){
+      toast({
+        description: error.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true
+      })
+    }
   }, []);
 
 
@@ -48,7 +62,7 @@ export default function DashboardPage() {
       </Heading>
       <Spacer />
       <Button colorScheme='green' onClick={() => history.push('/new-draft')}>
-        + New Draft
+        <AddIcon w={3} h={3} mr={1.5}/> New Draft
         </Button>
       </Flex>
 
@@ -56,7 +70,7 @@ export default function DashboardPage() {
       <Container maxW='container.lg' overflowX='auto'py={4}>
           {drafts.length > 0
             ? drafts && drafts.map((drafts) => <DraftCard key={drafts.id} {...drafts}/>)
-            : <DashboardEmpty/>}
+            : !isLoading ? <DashboardEmpty/> : ""}
 
 
 

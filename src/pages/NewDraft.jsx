@@ -83,7 +83,7 @@ export default function NewDraft() {
                 onChange={(e) => setTitle(e.target.value)}
                 name='title'
                 type='text'
-                placehoder = 'All about whales'
+                placeholder='All about whales'
                 required />
             </FormControl>
 
