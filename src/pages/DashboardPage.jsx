@@ -2,7 +2,7 @@ import { Button,
 Heading,
 Stack,
 useToast,
-Container, Textarea
+Container, Textarea, Spacer, Flex
 } from '@chakra-ui/react'
 import  React from 'react'
 import { useState, useEffect } from 'react'
@@ -15,6 +15,8 @@ import useMounted from '../hooks/useMounted'
 
 import { doc, addDoc, collection, query, orderBy, getDocs, onSnapshot } from 'firebase/firestore'
 import { db } from "../utils/init-firebase"
+
+import {DraftCard } from "../components/DraftCard"
 
 
 export default function DashboardPage() {
@@ -38,18 +40,23 @@ export default function DashboardPage() {
 
   return (
     <Layout>
+    <Flex minWidth='max-content' alignItems='center' gap='2'>
       <Heading>
         Dashboard
       </Heading>
+        <Spacer />
+      <Button colorScheme='green' onClick={() => history.push('/new-draft')}>
+        + New Draft
+        </Button>
+      </Flex>
 
-      <Container maxW='container.lg' overflowX='auto' py={4}>
-        <Button onClick={() => history.push('/new-draft')}>
-          New Draft
-          </Button>
+
+      <Container maxW='container.lg' overflowX='auto'py={4}>
+
 
 
             <p>
-            {drafts && drafts.map((drafts) => <p key={drafts.id} >{drafts.id}</p>)}
+            {drafts && drafts.map((drafts) => <DraftCard key={drafts.id} {...drafts}/>)}
             </p>
         </Container>
 
