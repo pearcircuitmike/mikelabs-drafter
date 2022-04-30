@@ -68,14 +68,14 @@ export default function OutlineGenerator(props) {
           onSubmit={handleOutline}
           >
           <Stack spacing='6'>
-            <FormLabel>Title:</FormLabel>
-            <Text whiteSpace="pre-wrap;">{props.title}</Text>
-            <FormLabel>Description:</FormLabel>
-            <Text whiteSpace="pre-wrap;">{props.desc}</Text>
 
               <FormControl id='Outline prompt'>
+                <FormLabel>Title:</FormLabel>
+                <Text whiteSpace="pre-wrap;" mb={6}>{props.title}</Text>
+                <FormLabel>Description:</FormLabel>
+                <Text whiteSpace="pre-wrap;" mb={6}>{props.desc}</Text>
                 <FormLabel>Outline</FormLabel>
-                <Text whiteSpace="pre-wrap;">{outline}</Text>
+                <Text whiteSpace="pre-wrap;" mb={6}>{outline}</Text>
               </FormControl>
 
               {outline &&

@@ -54,8 +54,8 @@ export default function NewDraft() {
       setIsSubmitting(false);
       history.push({
         pathname: '/outline',
-        title: title,
-        description: description,
+        title: title.trim(),
+        description: description.trim(),
         articleId: res.id
       });
     }
