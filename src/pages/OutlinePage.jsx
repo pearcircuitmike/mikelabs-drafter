@@ -9,12 +9,12 @@ import { Badge, chakra, Code, Container, Heading ,  Breadcrumb,
 import { Card } from '../components/Card'
 import { useAuth } from '../contexts/AuthContext'
 import OutlineGenerator from '../components/OutlineGenerator'
-import NewDraft from '../pages/NewDraft'
+import NewDraft from '../pages/NewDraftPage'
 
 import { BrowserRouter as Router, Route, Switch, Redirect, useLocation } from 'react-router-dom'
 
 
-export default function Outline(props) {
+export default function OutlinePage(props) {
   const {currentUser} = useAuth()
   const title = props.location.title;
   const desc = props.location.description;

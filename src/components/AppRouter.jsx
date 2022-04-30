@@ -8,9 +8,9 @@ import Profilepage from '../pages/Profilepage'
 import ProtectedPage from '../pages/ProtectedPage'
 import Registerpage from '../pages/Registerpage'
 import DashboardPage from '../pages/DashboardPage'
-import NewDraft from '../pages/NewDraft'
+import NewDraftPage from '../pages/NewDraftPage'
 import ArticlePage from '../pages/ArticlePage'
-import Outline from '../pages/Outline'
+import OutlinePage from '../pages/OutlinePage'
 
 
 import ResetPasswordPage from '../pages/ResetPasswordPage'
@@ -29,8 +29,8 @@ export default function AppRouter(props) {
           <ProtectedRoute exact path='/dashboard-page' component={DashboardPage} />
 
 
-          <ProtectedRoute exact path='/new-draft' component={NewDraft} />
-          <ProtectedRoute exact path='/outline' component={Outline} />
+          <ProtectedRoute exact path='/new-draft' component={NewDraftPage} />
+          <ProtectedRoute exact path='/outline' component={OutlinePage} />
 
           <Route path='/user/:uid/article/:articleId' component={ArticlePage} />
 

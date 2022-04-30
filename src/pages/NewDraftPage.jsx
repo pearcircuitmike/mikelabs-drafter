@@ -11,8 +11,10 @@ Text,
 Box,
 Flex,
 Badge,
-Container, Textarea
+Container, Textarea, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator
 } from '@chakra-ui/react'
+import { ChevronRightIcon } from '@chakra-ui/icons'
+
 import  React from 'react'
 import { useState } from 'react'
 import { Layout } from '../components/Layout'
@@ -28,7 +30,7 @@ import { db } from "../utils/init-firebase"
 import  OutlineGenerator  from '../components/OutlineGenerator'
 
 
-export default function NewDraft() {
+export default function NewDraftPage() {
   const toast = useToast()
   const history = useHistory()
   const {currentUser} = useAuth()
@@ -77,6 +79,11 @@ export default function NewDraft() {
           New Draft
         </Badge>
       </Heading>
+      <Breadcrumb separator={<ChevronRightIcon color='gray.500' />}>
+        <BreadcrumbItem isCurrentPage="true">
+          <BreadcrumbLink>Details</BreadcrumbLink>
+        </BreadcrumbItem>
+      </Breadcrumb>
 
       <Card maxW='xl' mx='auto' mt={4}>
         <chakra.form
