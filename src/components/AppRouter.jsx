@@ -11,6 +11,8 @@ import DashboardPage from '../pages/DashboardPage'
 import NewDraftPage from '../pages/NewDraftPage'
 import ArticlePage from '../pages/ArticlePage'
 import OutlinePage from '../pages/OutlinePage'
+import EditorPage from '../pages/EditorPage'
+
 
 
 import ResetPasswordPage from '../pages/ResetPasswordPage'
@@ -31,6 +33,8 @@ export default function AppRouter(props) {
 
           <ProtectedRoute exact path='/new-draft' component={NewDraftPage} />
           <ProtectedRoute exact path='/outline' component={OutlinePage} />
+          <ProtectedRoute exact path='/editor' component={EditorPage} />
+
 
           <Route path='/user/:uid/article/:articleId' component={ArticlePage} />
 
