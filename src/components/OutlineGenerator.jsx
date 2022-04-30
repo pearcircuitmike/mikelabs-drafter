@@ -11,11 +11,13 @@ Text,
 Box,
 Flex,
 Badge,
-Container, Textarea
+Container, Textarea, ButtonGroup, IconButton
 } from '@chakra-ui/react'
 import  React from 'react'
 import { useState } from 'react'
 import { Layout } from '../components/Layout'
+import { RepeatIcon } from '@chakra-ui/icons'
+
 
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { Card } from '../components/Card'
@@ -23,10 +25,6 @@ import { Card } from '../components/Card'
 const { Configuration, OpenAIApi } = require("openai");
 
 export default function OutlineGenerator(props) {
-  console.log(props.title)
-  console.log(props.desc)
-
-
   const toast = useToast()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [outline, setOutline] = useState('')
@@ -42,15 +40,16 @@ export default function OutlineGenerator(props) {
 
     try{
       const res = await openai.createCompletion("text-davinci-002", {
-        prompt: `Generate an outline for a blog post about ${outline}. Each bullet in the outlie should cover a key talking point and serve as a basis for a paragraph. Be sure to include an introduction and a conclusion too.`,
+        prompt: `Generate an outline for a blog post titled ${props.title} about ${props.desc}.
+                Each bullet in the outline should cover a key talking point and serve as a basis
+                for a paragraph. Include an introduction and a conclusion. Each bullet must start with a number.`,
         temperature: 0.7,
         max_tokens: 256,
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
       });
-
-      console.log(res.data.choices[0].text);
+      setOutline(res.data.choices[0].text.trim());
       setIsSubmitting(false);
     }
     catch(err){
@@ -64,34 +63,51 @@ export default function OutlineGenerator(props) {
   }
 
   return (
-
       <Card maxW='xl' mx='auto' mt={4}>
         <chakra.form
           onSubmit={handleOutline}
           >
           <Stack spacing='6'>
+            <FormLabel>Title:</FormLabel>
+            <Text whiteSpace="pre-wrap;">{props.title}</Text>
+            <FormLabel>Description:</FormLabel>
+            <Text whiteSpace="pre-wrap;">{props.desc}</Text>
 
-            <FormControl id='Outline prompt'>
-              <FormLabel>Description</FormLabel>
-              <Textarea
-                value={outline}
-                onChange={(e) => setOutline(e.target.value)}
-                name='description'
-                type='text-area'
-                placeholder = 'Prompt goes here'
-                required />
-            </FormControl>
+              <FormControl id='Outline prompt'>
+                <FormLabel>Outline</FormLabel>
+                <Text whiteSpace="pre-wrap;">{outline}</Text>
+              </FormControl>
 
+              {outline &&
+                <ButtonGroup>
+                  <Button
+                    width="100%;"
+                    isLoading={isSubmitting}
+                    colorScheme='primary'
+                    size='lg'
+                    fontSize='md'>
+                  Continue
+                  </Button>
+                  <IconButton
+                    isLoading={isSubmitting}
+                    type='submit'
+                    size='lg'
+                    icon={<RepeatIcon/>}
+                    />
+              </ButtonGroup>
+            }
 
+            {!outline &&
+                <Button
+                  isLoading={isSubmitting}
+                  type='submit'
+                  colorScheme='primary'
+                  size='lg'
+                  fontSize='md'>
+                  Generate
+                </Button>
+            }
 
-            <Button
-              isLoading={isSubmitting}
-              type='submit'
-              colorScheme='primary'
-              size='lg'
-              fontSize='md'>
-              Continue
-            </Button>
           </Stack>
         </chakra.form>
 

@@ -30,6 +30,7 @@ import  OutlineGenerator  from '../components/OutlineGenerator'
 
 export default function NewDraft() {
   const toast = useToast()
+  const history = useHistory()
   const {currentUser} = useAuth()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [title, setTitle] = useState('')
@@ -50,10 +51,13 @@ export default function NewDraft() {
         authorName: currentUser.displayName,
         authorPhoto: currentUser.photoURL,
       })
-
-      console.log(res);
-      console.log(res.id);
       setIsSubmitting(false);
+      history.push({
+        pathname: '/outline',
+        title: title,
+        description: description,
+        articleId: res.id
+      });
     }
     catch(err){
       toast({
@@ -108,7 +112,8 @@ export default function NewDraft() {
               type='submit'
               colorScheme='primary'
               size='lg'
-              fontSize='md'>
+              fontSize='md'
+              >
               Continue
             </Button>
           </Stack>
@@ -116,8 +121,6 @@ export default function NewDraft() {
 
       <Container maxW='container.lg' overflowX='auto' py={4}></Container>
       </Card>
-
-      <OutlineGenerator/>
 
     </Layout>
 

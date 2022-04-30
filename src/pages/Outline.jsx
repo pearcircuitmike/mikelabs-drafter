@@ -6,10 +6,11 @@ import { useAuth } from '../contexts/AuthContext'
 import OutlineGenerator from '../components/OutlineGenerator'
 
 
-export default function Profilepage() {
+export default function Outline(props) {
   const {currentUser} = useAuth()
-  const title = "mike"
-  const desc = "desc"
+  const title = props.location.title;
+  const desc = props.location.description;
+  const articleId = props.location.articleId;
 
   return (
     <Layout>
@@ -17,7 +18,7 @@ export default function Profilepage() {
         Outline
       </Heading>
 
-      <OutlineGenerator title={title} desc={desc}/>
+      <OutlineGenerator title={title} desc={desc} articleId={articleId}/>
 
     </Layout>
   )
