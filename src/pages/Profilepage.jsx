@@ -3,6 +3,8 @@ import { Layout } from '../components/Layout'
 import { Badge, chakra, Code, Container, Heading } from '@chakra-ui/react'
 import { Card } from '../components/Card'
 import { useAuth } from '../contexts/AuthContext'
+import  OutlineGenerator  from '../components/OutlineGenerator'
+
 
 export default function Profilepage() {
   const {currentUser} = useAuth()
@@ -15,6 +17,7 @@ export default function Profilepage() {
           Protected Page
         </Badge>
       </Heading>
+      <OutlineGenerator/>
 
       <Container maxW='container.lg' overflowX='auto' py={4}></Container>
       <chakra.pre>

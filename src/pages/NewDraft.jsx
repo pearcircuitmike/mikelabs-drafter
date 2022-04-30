@@ -25,6 +25,8 @@ import useMounted from '../hooks/useMounted'
 import { doc, addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from "../utils/init-firebase"
 
+import  OutlineGenerator  from '../components/OutlineGenerator'
+
 
 export default function NewDraft() {
   const toast = useToast()
@@ -100,6 +102,7 @@ export default function NewDraft() {
             </FormControl>
 
 
+
             <Button
               isLoading={isSubmitting}
               type='submit'
@@ -113,6 +116,8 @@ export default function NewDraft() {
 
       <Container maxW='container.lg' overflowX='auto' py={4}></Container>
       </Card>
+
+      <OutlineGenerator/>
 
     </Layout>
 
