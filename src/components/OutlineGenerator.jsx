@@ -22,7 +22,11 @@ import { Card } from '../components/Card'
 
 const { Configuration, OpenAIApi } = require("openai");
 
-export default function OutlineGenerator() {
+export default function OutlineGenerator(props) {
+  console.log(props.title)
+  console.log(props.desc)
+
+
   const toast = useToast()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [outline, setOutline] = useState('')
