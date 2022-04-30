@@ -1,19 +1,16 @@
 import { Button,
 Heading,
-Stack,
 useToast,
-Container, Textarea, Spacer, Flex
+Container,  Spacer, Flex
 } from '@chakra-ui/react'
 import  React from 'react'
 import { useState, useEffect } from 'react'
 import { Layout } from '../components/Layout'
 
-import { Link, useHistory, useLocation } from 'react-router-dom'
-import { Card } from '../components/Card'
+import { useHistory } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import useMounted from '../hooks/useMounted'
 
-import { doc, addDoc, collection, query, orderBy, getDocs, onSnapshot } from 'firebase/firestore'
+import {collection, onSnapshot } from 'firebase/firestore'
 import { db } from "../utils/init-firebase"
 
 import {DraftCard } from "../components/DraftCard"
@@ -29,11 +26,9 @@ export default function DashboardPage() {
   const {currentUser} = useAuth()
   const draftsRef = collection(db,  `${currentUser.uid}`);
   const [drafts, setDrafts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
 
   useEffect(() => {
-    setIsLoading(true);
     try{
       return onSnapshot(
       draftsRef,
@@ -41,7 +36,6 @@ export default function DashboardPage() {
         setDrafts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
       }
     );
-    setIsLoading(false);
     }
     catch(error){
       toast({

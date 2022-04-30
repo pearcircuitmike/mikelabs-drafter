@@ -3,11 +3,15 @@ chakra,
 FormControl,
 FormLabel,
 Heading,
+HStack,
 Input,
 Stack,
 useToast,
+Text,
+Box,
+Flex,
 Badge,
-Container, Textarea, Breadcrumb, BreadcrumbItem, BreadcrumbLink
+Container, Textarea, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator
 } from '@chakra-ui/react'
 import { ChevronRightIcon } from '@chakra-ui/icons'
 
@@ -15,20 +19,27 @@ import  React from 'react'
 import { useState } from 'react'
 import { Layout } from '../components/Layout'
 
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import { Card } from '../components/Card'
 import { useAuth } from '../contexts/AuthContext'
+import useMounted from '../hooks/useMounted'
 
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { doc, addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from "../utils/init-firebase"
 
-export default function NewDraftPage() {
+import  OutlineGenerator  from '../components/OutlineGenerator'
+
+
+export default function DraftPage(props) {
   const toast = useToast()
   const history = useHistory()
   const {currentUser} = useAuth()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+
+
+  const [data, setData] = useState('')
 
   const handleAdd = async (e) =>{
     e.preventDefault()

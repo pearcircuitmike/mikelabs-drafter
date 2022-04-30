@@ -2,24 +2,14 @@ import { Button,
 chakra,
 FormControl,
 FormLabel,
-Heading,
-HStack,
-Input,
 Stack,
 useToast,
 Text,
-Box,
-Flex,
-Badge,
-Container, Textarea, ButtonGroup, IconButton
+ButtonGroup, IconButton
 } from '@chakra-ui/react'
 import  React from 'react'
 import { useState } from 'react'
-import { Layout } from '../components/Layout'
 import { RepeatIcon } from '@chakra-ui/icons'
-
-
-import { Link, useHistory, useLocation } from 'react-router-dom'
 import { Card } from '../components/Card'
 
 const { Configuration, OpenAIApi } = require("openai");

@@ -6,7 +6,6 @@ import {
   List,
   ListItem,
   OrderedList,
-  Tag,
   Text,
 } from '@chakra-ui/react'
 import React from 'react'

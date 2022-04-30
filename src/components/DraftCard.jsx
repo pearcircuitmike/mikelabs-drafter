@@ -1,9 +1,9 @@
-import { useColorModeValue, Heading, Text, Button} from '@chakra-ui/react'
+import { Heading, Text, Button} from '@chakra-ui/react'
 import { Card } from './Card'
 
 import * as React from 'react'
 import { useAuth } from '../contexts/AuthContext'
-import { doc, addDoc, collection, query, orderBy, getDocs, onSnapshot,   deleteDoc } from 'firebase/firestore'
+import { doc, deleteDoc } from 'firebase/firestore'
 import { db } from "../utils/init-firebase"
 
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons'

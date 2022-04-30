@@ -1,4 +1,4 @@
-import { useColorModeValue, Heading, Text, Button, Box, Center} from '@chakra-ui/react'
+import { Text, Box, Center} from '@chakra-ui/react'
 import * as React from 'react'
 
 export const DashboardEmpty = () => {

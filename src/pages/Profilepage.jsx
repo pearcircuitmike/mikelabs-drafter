@@ -1,7 +1,6 @@
 import React from 'react'
 import { Layout } from '../components/Layout'
-import { Badge, chakra, Code, Container, Heading } from '@chakra-ui/react'
-import { Card } from '../components/Card'
+import { Badge, chakra, Container, Heading } from '@chakra-ui/react'
 import { useAuth } from '../contexts/AuthContext'
 
 
