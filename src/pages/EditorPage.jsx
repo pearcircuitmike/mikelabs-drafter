@@ -13,14 +13,12 @@ import { useLocation } from 'react-router-dom'
 
 export default function EditorPage(props) {
   const {currentUser} = useAuth()
-  const title = props.location.title;
-  const desc = props.location.description;
-  const articleId = props.location.articleId;
+  const outline = props.location.outline;
 
   return (
     <Layout>
       <Heading>
-        Generate Outline
+        Complete draft
       </Heading>
 
       <Breadcrumb separator={<ChevronRightIcon color='gray.500' />}>
@@ -35,7 +33,7 @@ export default function EditorPage(props) {
         </BreadcrumbItem>
       </Breadcrumb>
 
-      <EditorComponent title={title} desc={desc} articleId={articleId}/>
+      <EditorComponent outline={outline}/>
 
     </Layout>
   )

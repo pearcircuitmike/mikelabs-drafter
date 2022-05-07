@@ -12,12 +12,14 @@ import { useState } from 'react'
 import { RepeatIcon } from '@chakra-ui/icons'
 import { Card } from '../components/Card'
 
+import { useHistory } from 'react-router-dom'
 const { Configuration, OpenAIApi } = require("openai");
 
 export default function OutlineGenerator(props) {
   const toast = useToast()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [outline, setOutline] = useState('')
+  const history = useHistory()
 
   const configuration = new Configuration({
     apiKey: process.env.REACT_APP_OPENAI_API_KEY,
@@ -75,7 +77,13 @@ export default function OutlineGenerator(props) {
                     isLoading={isSubmitting}
                     colorScheme='primary'
                     size='lg'
-                    fontSize='md'>
+                    fontSize='md'
+                    onClick={() =>
+                    history.push({
+                      pathname: '/editor',
+                      outline: outline
+                    })}
+                    >
                   Continue
                   </Button>
                   <IconButton
