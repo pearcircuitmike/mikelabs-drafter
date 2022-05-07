@@ -27,21 +27,26 @@ export default function EditorComponent(props){
   const [editorInst, setEditorInst] = useState()
   const [text, setText] = useState(props.outline)
   const [cursorPos, setCursorPos] = useState('')
+  const [generation, setGeneration] = useState('placeholder')
 
   let handleCkeditorState = (event, editor) => {
     const data = editor.getData()
     setText(data)
     setCursorPos(editor.model.document.selection.getFirstPosition().path[1])
-    console.log(strip(text));
-    console.log(cursorPos);
   }
 
   let handlePrompt = (event, editor) =>{
-    console.log(text)
     editor = editorInst
-    editor.model.change( writer => {writer.insertText('hello world', editor.model.document.selection.getFirstPosition() )})
+    // generate prompt
+
+    editor.model.change(
+       writer => {writer.insertText(generation, editor.model.document.selection.getFirstPosition()
+     )})
   }
 
+  useEffect(() => {
+    console.log(text)
+  })
 
   return (
     <Grid templateColumns='repeat(2, 2fr)' gap={12} mt={10}>
