@@ -22,7 +22,7 @@ export function Navbar() {
       mb={4}
     >
       <HStack py={4} justifyContent='flex-end' maxW='container.lg' mx='auto'>
-        <Navlink to='/' name='Writemo' size='lg' />
+        <Navlink to='/' name='Drafter' size='lg' />
         <Spacer />
         {!currentUser && <Navlink to='/login' name='Login' /> }
         {!currentUser && <Navlink to='/register' name='Register' /> }

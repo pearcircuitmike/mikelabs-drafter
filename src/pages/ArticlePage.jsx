@@ -10,9 +10,7 @@ import { Layout } from '../components/Layout'
 
 import { getDoc, doc} from 'firebase/firestore'
 import { db } from "../utils/init-firebase"
-
-
-
+import parse from 'html-react-parser'
 
 
 export default function ArticlePage() {
@@ -21,6 +19,8 @@ export default function ArticlePage() {
 
   const [article, setArticle] = useState();
   const [copied, setCopied] = useState(false);
+
+
 
   function copy() {
     const el = document.createElement("input");
@@ -72,7 +72,7 @@ export default function ArticlePage() {
   else{
     return(
       <Layout>
-        <Container>
+        <Container mb={6}>
         <Heading mb={4} as='h1' size='3xl'> {article.title} </Heading>
         <Flex mb={6}>
           <Center>
@@ -84,13 +84,14 @@ export default function ArticlePage() {
               mr ={2}
               />
               <Text mr={3}>{article.authorName} </Text>
-              <Button onClick={ copy }>{!copied ? <div><LinkIcon mr={3} />Share with Link</div> : "Copied!"}</Button>
 
             </Center>
           </Flex>
 
-        <Text as='h2' size='sm'> {article.description} </Text>
-        {article}
+        <Text as='h2' size='sm' style={{fontStyle: "italic"}} mb={6}> {article.description} </Text>
+        {parse(article.text)}
+        <Button mt={6} onClick={ copy }>{!copied ? <div><LinkIcon mr={3}/>Share with Link</div> : "Copied!"}</Button>
+
 
         </Container>
       </Layout>
