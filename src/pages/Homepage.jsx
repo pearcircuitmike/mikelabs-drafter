@@ -17,7 +17,7 @@ export default function Homepage(){
 
   return (
     <Layout>
-      <Heading>Home page</Heading>
+      <Heading>Home page TEST</Heading>
     </Layout>
 
 
