@@ -21,15 +21,16 @@ import { AddIcon } from '@chakra-ui/icons'
 
 
 export default function DashboardPage() {
-  const toast = useToast()
   const history = useHistory()
   const {currentUser} = useAuth()
-  const draftsRef = collection(db,  `${currentUser.uid}`);
   const [drafts, setDrafts] = useState([]);
+  const toast = useToast()
+  const draftsRef = collection(db,  `${currentUser.uid}`);
 
 
   useEffect(() => {
     try{
+
       return onSnapshot(
       draftsRef,
       (snapshot) => {

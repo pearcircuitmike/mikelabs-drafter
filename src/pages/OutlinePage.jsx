@@ -1,18 +1,10 @@
 import React from 'react'
 import { Layout } from '../components/Layout'
-import { Heading ,  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink} from '@chakra-ui/react'
-  import { ChevronRightIcon } from '@chakra-ui/icons'
-
-import { useAuth } from '../contexts/AuthContext'
+import { Heading ,  Breadcrumb, BreadcrumbItem, BreadcrumbLink} from '@chakra-ui/react'
+import { ChevronRightIcon } from '@chakra-ui/icons'
 import OutlineGenerator from '../components/OutlineGenerator'
 
-import { useLocation } from 'react-router-dom'
-
-
 export default function OutlinePage(props) {
-  const {currentUser} = useAuth()
   const title = props.location.title;
   const desc = props.location.description;
   const articleId = props.location.articleId;

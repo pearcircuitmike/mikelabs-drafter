@@ -1,39 +1,19 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React, {useState} from 'react'
 import '../css/Editor.css'
-
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import parse from 'html-react-parser'
-import strip from 'strip'
-import TypeAnimation from 'react-type-animation';
-import {
-Grid, GridItem, Button,
-Heading,
-HStack,
-Input,
-Stack,
-useToast,
-Text,
-Box,
-Flex,
-Badge,
-Container, Textarea, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator
-} from '@chakra-ui/react'
-import { useHistory } from 'react-router-dom'
+import {Button, useToast} from '@chakra-ui/react'
 import useInterval from '@use-it/interval';
-import { useAuth } from '../contexts/AuthContext'
-import { doc, setDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { doc, setDoc} from 'firebase/firestore'
 import { db } from "../utils/init-firebase"
-
 
 const { Configuration, OpenAIApi } = require("openai");
 
 export default function EditorComponent(props){
-  const history = useHistory()
   const toast = useToast()
   const [editorInst, setEditorInst] = useState()
   const [text, setText] = useState(props.outline)
-  const [cursorPos, setCursorPos] = useState('')
+
   const [generation, setGeneration] = useState('')
   const configuration = new Configuration({
     apiKey: process.env.REACT_APP_OPENAI_API_KEY,
@@ -47,7 +27,7 @@ export default function EditorComponent(props){
 
     const handleSave = () =>{
       try{
-        const res = setDoc(doc(db, `${props.authorId}/${props.articleId}`),{
+        setDoc(doc(db, `${props.authorId}/${props.articleId}`),{
           text: text
         }, {merge:true})
       }
@@ -61,12 +41,9 @@ export default function EditorComponent(props){
       }
     }
 
-
   const handleCkeditorState = (event, editor) => {
     const data = editor.getData()
     setText(data)
-    setCursorPos(editor.model.document.selection.getFirstPosition().path[1])
-
   }
 
   const handlePrompt = async (event, editor) =>{
@@ -96,6 +73,7 @@ export default function EditorComponent(props){
 
       const content = res.data.choices[0].text.trim();
       setGeneration(content);
+      console.log(generation)
       const viewFragment = editor.data.processor.toView( content );
       const modelFragment = editor.data.toModel( viewFragment );
       editor.model.insertContent( modelFragment );

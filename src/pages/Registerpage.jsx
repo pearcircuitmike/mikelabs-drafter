@@ -1,15 +1,5 @@
-import {
-  Button,
-  Center,
-  chakra,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
-  Stack,
-  useToast,
-} from '@chakra-ui/react'
-import React, { useEffect, useRef, useState } from 'react'
+import {Button, Center, chakra, FormControl, FormLabel, Heading, Input, Stack, useToast} from '@chakra-ui/react'
+import React, { useState } from 'react'
 import { FaGoogle } from 'react-icons/fa'
 import { useHistory } from 'react-router-dom'
 import { Card } from '../components/Card'

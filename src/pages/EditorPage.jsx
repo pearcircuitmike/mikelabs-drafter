@@ -8,9 +8,6 @@ import { Heading ,  Breadcrumb,
 import { useAuth } from '../contexts/AuthContext'
 import EditorComponent from '../components/EditorComponent'
 
-import { useLocation } from 'react-router-dom'
-
-
 export default function EditorPage(props) {
   const {currentUser} = useAuth()
   const outline = props.location.outline;

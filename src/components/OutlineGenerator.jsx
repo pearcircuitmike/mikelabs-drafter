@@ -13,7 +13,7 @@ import { RepeatIcon } from '@chakra-ui/icons'
 import { Card } from '../components/Card'
 
 import { useHistory } from 'react-router-dom'
-import { doc, setDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { doc, setDoc } from 'firebase/firestore'
 import { db } from "../utils/init-firebase"
 import { useAuth } from '../contexts/AuthContext'
 
@@ -68,7 +68,7 @@ export default function OutlineGenerator(props) {
     setIsSubmitting(true)
 
     try{
-      const res = await setDoc(doc(db, `${currentUser.uid}/${props.articleId}`),{
+      await setDoc(doc(db, `${currentUser.uid}/${props.articleId}`),{
         outline: outline
       }, {merge:true})
       setIsSubmitting(false);

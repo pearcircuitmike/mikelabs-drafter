@@ -90,6 +90,7 @@ export default function ArticlePage() {
           </Flex>
 
         <Text as='h2' size='sm'> {article.description} </Text>
+        {article}
 
         </Container>
       </Layout>
