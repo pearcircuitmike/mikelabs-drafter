@@ -97,9 +97,9 @@ export default function EditorComponent(props){
             data={text}
             onChange={handleCkeditorState}
           />
-          <Button onClick={handlePrompt}>Generate</Button>
+          <Button onClick={handlePrompt} mr={3} mt={3} colorScheme="primary">Generate</Button>
 
-          <Button onClick={handleSave}>Save</Button>
+          <Button onClick={handleSave} mt={3}>Save</Button>
     </div>
 
   )
