@@ -34,7 +34,7 @@ export default function OutlineGenerator(props) {
       const res = await openai.createCompletion("text-davinci-002", {
         prompt: `Generate an outline for a blog post titled ${props.title} about ${props.desc}.
                 Each bullet in the outline should cover a key talking point and serve as a basis
-                for a paragraph. Include an introduction and a conclusion. Each bullet must start with a number.`,
+                for a paragraph. Include an introduction and a conclusion. Each bullet must be a complete sentence.`,
         temperature: 0.7,
         max_tokens: 256,
         top_p: 1,
@@ -42,6 +42,7 @@ export default function OutlineGenerator(props) {
         presence_penalty: 0,
       });
       setOutline(res.data.choices[0].text.trim());
+
       setIsSubmitting(false);
     }
     catch(err){
