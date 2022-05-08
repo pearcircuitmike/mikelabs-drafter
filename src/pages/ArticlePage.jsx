@@ -75,9 +75,16 @@ export default function ArticlePage() {
     return(<div>
       <Helmet>
              <meta charSet="utf-8" />
+             <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
              <title>{article.title}</title>
              <meta name="description" content={article.description}/>
-             <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+             <meta property="og:title" content={article.title} />
+             <meta property="og:description" content={article.description}/>
+             <meta property="og:url" content={window.location.href} />
+             <meta property="og:description" content={article.authorPhoto}/>
+
          </Helmet>
 
 
