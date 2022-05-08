@@ -6,7 +6,7 @@ export default function Homepage(){
 
   return (
     <Layout>
-      <Heading>Home page TEST</Heading>
+      <Heading>Home page TEST2</Heading>
     </Layout>
 
 
