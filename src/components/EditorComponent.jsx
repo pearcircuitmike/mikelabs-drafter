@@ -20,6 +20,12 @@ Badge,
 Container, Textarea, Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator
 } from '@chakra-ui/react'
 import { useHistory } from 'react-router-dom'
+import useInterval from '@use-it/interval';
+import { useAuth } from '../contexts/AuthContext'
+import { doc, setDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { db } from "../utils/init-firebase"
+
+
 const { Configuration, OpenAIApi } = require("openai");
 
 export default function EditorComponent(props){
@@ -34,6 +40,28 @@ export default function EditorComponent(props){
   });
   const openai = new OpenAIApi(configuration);
 
+  useInterval(() => {
+    // disabled autosave for now
+    //handleSave()
+  }, 5000);
+
+    const handleSave = () =>{
+      try{
+        const res = setDoc(doc(db, `${props.authorId}/${props.articleId}`),{
+          text: text
+        }, {merge:true})
+      }
+      catch(err){
+        toast({
+          description: err,
+          status: "error",
+          duration: 5000,
+          isClosable: true
+        })
+      }
+    }
+
+
   const handleCkeditorState = (event, editor) => {
     const data = editor.getData()
     setText(data)
@@ -45,9 +73,13 @@ export default function EditorComponent(props){
     event.preventDefault()
     editor = editorInst
     const selection = editor.model.document.selection;
-    console.log(selection.anchor.nodeBefore._data)
-    let prompt = selection.anchor.nodeBefore._data
-
+    let prompt = ''
+    try{
+        prompt = selection.anchor.nodeBefore._data
+    }
+    catch{
+      prompt = ''
+    }
 
     try{
       const res = await openai.createCompletion("text-davinci-002", {
@@ -61,17 +93,12 @@ export default function EditorComponent(props){
         frequency_penalty: 1,
         presence_penalty: 1,
       });
-      setGeneration();
 
       const content = res.data.choices[0].text.trim();
+      setGeneration(content);
       const viewFragment = editor.data.processor.toView( content );
       const modelFragment = editor.data.toModel( viewFragment );
       editor.model.insertContent( modelFragment );
-      console.log(content)
-      console.log('done')
-
-
-      //editor.model.change(writer => {  writer.insertText(res.data.choices[0].text.trim(),editor.model.document.selection.getFirstPosition())})
     }
     catch(err){
       toast({
@@ -84,10 +111,6 @@ export default function EditorComponent(props){
 
   }
 
-  useEffect(() => {
-    console.log(text)
-  })
-
   return (
     <div style={{marginTop: "12px"}}>
           <CKEditor
@@ -95,9 +118,10 @@ export default function EditorComponent(props){
             onReady= { editor =>{ setEditorInst(editor)}}
             data={text}
             onChange={handleCkeditorState}
-
           />
           <Button onClick={handlePrompt}>Generate</Button>
+
+          <Button onClick={handleSave}>Save</Button>
     </div>
 
   )

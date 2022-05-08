@@ -32,7 +32,7 @@ export default function OutlinePage(props) {
         </BreadcrumbItem>
       </Breadcrumb>
 
-      <OutlineGenerator title={title} desc={desc} articleId={articleId}/>
+      <OutlineGenerator title={title} desc={desc} articleId={articleId}  />
 
     </Layout>
   )

@@ -14,6 +14,9 @@ import { useLocation } from 'react-router-dom'
 export default function EditorPage(props) {
   const {currentUser} = useAuth()
   const outline = props.location.outline;
+  const articleId = props.location.articleId;
+
+
 
   return (
     <Layout>
@@ -33,7 +36,7 @@ export default function EditorPage(props) {
         </BreadcrumbItem>
       </Breadcrumb>
 
-      <EditorComponent outline={outline}/>
+      <EditorComponent outline={outline} articleId={articleId} authorId={currentUser.uid}/>
 
     </Layout>
   )

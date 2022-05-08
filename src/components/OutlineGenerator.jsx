@@ -13,10 +13,18 @@ import { RepeatIcon } from '@chakra-ui/icons'
 import { Card } from '../components/Card'
 
 import { useHistory } from 'react-router-dom'
+import { doc, setDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { db } from "../utils/init-firebase"
+import { useAuth } from '../contexts/AuthContext'
+
+
+
 const { Configuration, OpenAIApi } = require("openai");
+
 
 export default function OutlineGenerator(props) {
   const toast = useToast()
+  const {currentUser} = useAuth()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [outline, setOutline] = useState('')
   const history = useHistory()
@@ -55,6 +63,31 @@ export default function OutlineGenerator(props) {
     }
   }
 
+  const handleAdd = async (e) =>{
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    try{
+      const res = await setDoc(doc(db, `${currentUser.uid}/${props.articleId}`),{
+        outline: outline
+      }, {merge:true})
+      setIsSubmitting(false);
+      history.push({
+        pathname: '/editor',
+        outline: outline,
+        articleId: props.articleId
+      })
+    }
+    catch(err){
+      toast({
+        description: err,
+        status: "error",
+        duration: 5000,
+        isClosable: true
+      })
+    }
+  }
+
   return (
       <Card maxW='xl' mx='auto' mt={4}>
         <chakra.form
@@ -79,11 +112,9 @@ export default function OutlineGenerator(props) {
                     colorScheme='primary'
                     size='lg'
                     fontSize='md'
-                    onClick={() =>
-                    history.push({
-                      pathname: '/editor',
-                      outline: outline
-                    })}
+                    onClick={handleAdd}
+
+
                     >
                   Continue
                   </Button>
