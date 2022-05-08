@@ -11,6 +11,8 @@ import { Layout } from '../components/Layout'
 import { getDoc, doc} from 'firebase/firestore'
 import { db } from "../utils/init-firebase"
 import parse from 'html-react-parser'
+import {Helmet} from "react-helmet";
+
 
 
 export default function ArticlePage() {
@@ -70,7 +72,16 @@ export default function ArticlePage() {
     )
   }
   else{
-    return(
+    return(<div>
+      <Helmet>
+             <meta charSet="utf-8" />
+             <title>{article.title}</title>
+             <meta name="description" content={article.description}/>
+             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         </Helmet>
+
+
+
       <Layout>
         <Container mb={6}>
         <Heading mb={4} as='h1' size='3xl'> {article.title} </Heading>
@@ -95,6 +106,7 @@ export default function ArticlePage() {
 
         </Container>
       </Layout>
+      </div>
     )
   }
 
