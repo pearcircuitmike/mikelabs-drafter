@@ -37,8 +37,11 @@ export function Navbar() {
             logout()
           }}
         />}
-        //<IconButton variant='outline' icon={useColorModeValue(<FaSun />, <FaMoon />)} onClick={toggleColorMode} aria-label='toggle-dark-mode' />
       </HStack>
     </Box>
   )
 }
+
+
+
+//<IconButton variant='outline' icon={useColorModeValue(<FaSun />, <FaMoon />)} onClick={toggleColorMode} aria-label='toggle-dark-mode' />
