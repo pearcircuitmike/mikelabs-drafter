@@ -16,6 +16,7 @@ import { useHistory } from 'react-router-dom'
 import { doc, setDoc } from 'firebase/firestore'
 import { db } from "../utils/init-firebase"
 import { useAuth } from '../contexts/AuthContext'
+import {typewriter} from "./typewriter";
 
 
 

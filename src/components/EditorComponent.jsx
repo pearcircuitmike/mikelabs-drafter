@@ -6,6 +6,7 @@ import {Button, useToast} from '@chakra-ui/react'
 import useInterval from '@use-it/interval';
 import { doc, setDoc} from 'firebase/firestore'
 import { db } from "../utils/init-firebase"
+import {typewriter} from "./typewriter";
 
 const { Configuration, OpenAIApi } = require("openai");
 
@@ -13,6 +14,8 @@ export default function EditorComponent(props){
   const toast = useToast()
   const [editorInst, setEditorInst] = useState()
   const [text, setText] = useState(props.outline)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
 
   const [generation, setGeneration] = useState('')
   const configuration = new Configuration({
@@ -46,8 +49,12 @@ export default function EditorComponent(props){
     setText(data)
   }
 
+
+
   const handlePrompt = async (event, editor) =>{
     event.preventDefault()
+    setIsSubmitting(true)
+
     editor = editorInst
     const selection = editor.model.document.selection;
     let prompt = ''
@@ -60,23 +67,28 @@ export default function EditorComponent(props){
 
     try{
       const res = await openai.createCompletion("text-davinci-002", {
-        prompt: `This is a blog post called ${props.title}, with an outline as follows: ${props.outline} .
-                Avoid repeating the same text. Help the writer complete the blog by providing logical, professional, insightful
-                text that comes after: ${prompt}.
+        prompt: `This is a blog post called ${props.title}. The blog description is: ${props.description}.
+                Help the writer complete the blog by providing logical, professional, insightful text.
+                Create a logical completion for the following, and respond without repeating the prompt.
+                Use your outside knowledge to provide facts that support the main claims.
+                ${prompt}.
               `,
-        temperature: 0.4,
+        temperature: 0.8,
         max_tokens: 256,
         top_p: 1,
-        frequency_penalty: 1,
-        presence_penalty: 1,
+        frequency_penalty: 2,
+        presence_penalty: 2,
       });
-
+      setIsSubmitting(false)
       const content = res.data.choices[0].text.trim();
+
+      typewriter(content.split(" "), char => {
+        const viewFragment = editor.data.processor.toView(`${char}<pre> </pre>`);
+        const modelFragment = editor.data.toModel( viewFragment );
+        editor.model.insertContent( modelFragment );
+      }, 25)
       setGeneration(content);
-      console.log(generation)
-      const viewFragment = editor.data.processor.toView( content );
-      const modelFragment = editor.data.toModel( viewFragment );
-      editor.model.insertContent( modelFragment );
+
     }
     catch(err){
       toast({
@@ -97,9 +109,9 @@ export default function EditorComponent(props){
             data={text}
             onChange={handleCkeditorState}
           />
-          <Button onClick={handlePrompt} mr={3} mt={3} colorScheme="primary">Generate</Button>
+          <Button onClick={handlePrompt} isLoading = {isSubmitting} mr={3} mt={3} colorScheme="primary">Generate</Button>
 
-          <Button onClick={handleSave} mt={3}>Save</Button>
+          <Button onClick={handleSave} isLoading = {isSubmitting} mt={3}>Save</Button>
     </div>
 
   )
